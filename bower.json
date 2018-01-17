@@ -1,0 +1,20 @@
+{
+  "name": "drockly",
+  "homepage": "https://github.com/DuncanDoyle/drockly",
+  "authors": [
+    "Duncan Doyle <ddoyle@redhat.com>"
+  ],
+  "description": "Blockly-based language for the Drools Rule Language (DRL).",
+  "main": "",
+  "license": "ALv2",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "google-blockly": "*"
+  }
+}
