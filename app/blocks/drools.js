@@ -9,7 +9,7 @@
 
 Blockly.defineBlocksWithJsonArray([
   {
-    "type": "rule_when_then",
+    "type": "drools_rule",
     "message0": "name: %1",
     //rule name
     "args0": [
@@ -24,7 +24,7 @@ Blockly.defineBlocksWithJsonArray([
     "args1": [
       {
        "type": "input_statement",
-       "name": "WHEN",
+       "name": "LHS",
        "check": "expression"
       }
     ],
@@ -33,36 +33,34 @@ Blockly.defineBlocksWithJsonArray([
     "args2": [
       {
        "type": "input_statement",
-       "name": "THEN",
+       "name": "RHS",
       }
     ],
     "colour": 160,
     "tooltip": "Drools rule definition",
     "helpUrl": "http://www.drools.org/learn/documentation.html"
   },
+
   {
-    "type": "expression",
-    "message0": "There is a %1",
+    "type": "drools_object",
+    "message0": "There is a %1 as %2",
     "args0": [
       {
        "type": "field_input",
-       "name": "TIA",
+       "name": "OBJECT",
        "text": "object type"
-      }
+     },
+     {
+      "type": "field_input",
+      "name": "VAR_NAME",
+      "text": "variable name"
+     }
     ],
-    "message1": "as %1",
+    "message1": "with %1",
     "args1": [
       {
-       "type": "field_input",
-       "name": "AS",
-       "text": "variable name"
-      }
-    ],
-    "message2": "with %1",
-    "args2": [
-      {
        "type": "input_statement",
-       "name": "WITH",
+       "name": "CONSTRAINT",
       }
     ],
     "colour": 220,
@@ -71,6 +69,7 @@ Blockly.defineBlocksWithJsonArray([
     "tooltip": "Drools expression definition",
     "helpUrl": "http://www.drools.org/learn/documentation.html"
   },
+
   {
     "type": "drools_constraint",
     //Left
@@ -78,19 +77,19 @@ Blockly.defineBlocksWithJsonArray([
     "args0": [
       {
        "type": "field_input",
-       "name": "VARLEFT",
+       "name": "LEFT_OP",
      },
      {
        "type": "field_dropdown",
        "name": "OPERATOR",
        "options": [
-         [ "==", "EQUALS" ],
-         [ "!=", "NOT EQUALS" ]
+         [ "==", " == " ],
+         [ "!=", " != " ]
        ]
      },
      {
        "type": "field_input",
-       "name": "VARRIGHT"
+       "name": "RIGHT_OP"
      }
     ],
      //test: untyped output
