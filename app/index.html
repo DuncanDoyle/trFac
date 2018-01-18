@@ -24,22 +24,29 @@
   <h1>Drockly: A blockly-based block language for DRL</h1>
 
   <!-- Blockly Div -->
-  <div id="blocklyDiv" style="height: 480px; width: 600px;"></div>
+  <div id="blocklyDiv" style="height: 480px; width: 1200px;">
+    <button onclick="run()"> RunMe </button>
+  </div>
+  <div id="blocklyCode" style="height: 480px; width: 1200px;">
+    <h1>Generated code</h1>
+
+  </div>
 
   <!-- Blockly toolbox structure -->
   <xml id="toolbox" style="display: none">
+    <category name="Drools" colout=100>
+      <block type="rule_when_then"></block>
+      <block type="expression"></block>
+      <block type="drools_constraint"></block>
 
-    <block type="rule_when_then"></block>
-    <block type="expression"></block>
-    <block type="controls_if"></block>
-
-    <block type="controls_repeat_ext"></block>
-    <block type="logic_compare"></block>
-    <block type="math_number"></block>
-    <block type="math_arithmetic"></block>
-    <block type="text"></block>
-    <block type="text_print"></block>
-  
+      <block type="controls_if"></block>
+      <block type="controls_repeat_ext"></block>
+      <block type="logic_compare"></block>
+      <block type="math_number"></block>
+      <block type="math_arithmetic"></block>
+      <block type="text"></block>
+      <block type="text_print"></block>
+    </category>
   </xml>
 
 
@@ -109,14 +116,25 @@
   <script src="../bower_components/google-blockly/blockly_compressed.js"></script>
   <script src="../bower_components/google-blockly/blocks_compressed.js"></script>
   <!-- DRL blocks. -->
-  <script src="blocks/rule.js"></script>
+  <script src="blocks/drools.js"></script>
+  <script src="generators/drools.js"></script>
 
 
   <script src="../bower_components/google-blockly/msg/js/en.js"></script>
   <script>
-  var workspacePlayground = Blockly.inject('blocklyDiv',
-      {toolbox: document.getElementById('toolbox')});
+    var workspace = Blockly.inject('blocklyDiv', {toolbox: document.getElementById('toolbox')});
+
   </script>
+
+
+  <script>
+    var run =  function() {
+      Blockly.Drools.addReservedWords('code');
+      var code = Blockly.Drools.workspaceToCode(workspace);
+      alert("Drools code: \n\n" + code);
+
+    }
+</script>
 
   <!-- endbuild -->
 </body>
