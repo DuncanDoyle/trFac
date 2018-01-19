@@ -29,10 +29,11 @@ Blockly.Drools.scrub_ = function(block,code) {
     // Only collect comments for blocks that aren't inline.
     if (!block.outputConnection || !block.outputConnection.targetConnection) {
       // Collect comment for this block.
+      console.log("Collecting block comments");
       var comment = block.getCommentText();
       comment = Blockly.utils.wrap(comment, Blockly.Drools.COMMENT_WRAP - 3);
       if (comment) {
-        commentCode += '/**\n' +
+        commentCode += '/*\n' +
                 Blockly.Drools.prefixLines(comment + '\n', ' * ') +
                 '*/\n';
 
@@ -64,7 +65,16 @@ Blockly.Drools.scrub_ = function(block,code) {
     var nextBlock = block.nextConnection && block.nextConnection.targetBlock();
     console.log("Next block: " + nextBlock);
     var nextCode = Blockly.Drools.blockToCode(nextBlock);
-    return commentCode + code + nextCode;
+    var separator = "";
+	  if (block.type == "drools_constraint" && nextBlock != null && nextBlock.type == "drools_constraint") {
+     	separator = ", ";
+    }
+    if (block.type == "drools_object" && nextBlock != null && nextBlock.type == "drools_object") {
+      separator = "\n";
+    }
+    var generatedCode = commentCode + code + separator + nextCode;
+    console.log("Generated code: " + generatedCode);
+    return generatedCode;
 
 }
 
@@ -84,13 +94,12 @@ Blockly.Drools.finish = function(code) {
 Blockly.Drools['drools_rule'] = function(block) {
   var ruleName = block.getFieldValue('NAME')
 
-  //Generate code for the LHS
+  //Generate code for the LHS and RHS
   var lhsCode = Blockly.Drools.statementToCode(block, 'LHS');
+  var rhsCode = Blockly.Drools.statementToCode(block, 'RHS');
 
-  //var rhsCode =
-
-  var code = 'rule "'+ ruleName + '"\n' + 'when\n' + lhsCode + '\n' + 'then\n' + 'end\n';
-
+  //Build the code of the rule.
+  var code = 'rule "'+ ruleName + '"\nwhen\n' + lhsCode + '\nthen\n' + rhsCode + '\nend\n';
 
   return code;
 }
@@ -115,9 +124,32 @@ Blockly.Drools['drools_constraint'] = function(block) {
 
   var leftOperand = block.getFieldValue("LEFT_OP");
   var operator = block.getFieldValue("OPERATOR");
-  var rightOperand = block.getFieldValue("RIGHT_OP");
+  var rightOperand = Blockly.Drools.valueToCode(block, "RIGHT_OP", Blockly.Drools.ORDER_EQUALITY);
+  console.log("Right operand: " + rightOperand);
 
-  var code = leftOperand + operator + '\"' + rightOperand + '\"';
+  var code = leftOperand + operator + rightOperand ;
 
+  return code;
+}
+
+//Drools String
+Blockly.Drools['drools_string'] = function(block) {
+  var value = block.getFieldValue("VALUE");
+  console.log("String value: " + value);
+  //TODO: Need to return the value as an array, because "valueToCode" fetches the first element. Need to figure out what that second element is for.
+  return ['\"' + value + '\"'];
+}
+
+//Drools Number
+Blockly.Drools['drools_number'] = function(block) {
+  var value = block.getFieldValue("VALUE");
+  console.log("Number value: " + value);
+  //TODO: Need to return the value as an array, because "valueToCode" fetches the first element. Need to figure out what that second element is for.
+  return [value];
+}
+//Drools DRL
+Blockly.Drools['drools_drl'] = function(block) {
+  var code = block.getFieldValue("VALUE");
+  //TODO: Need to return the value as an array, because "valueToCode" fetches the first element. Need to figure out what that second element is for.
   return code;
 }

@@ -10,7 +10,7 @@
 Blockly.defineBlocksWithJsonArray([
   {
     "type": "drools_rule",
-    "message0": "name: %1",
+    "message0": "Name: %1",
     //rule name
     "args0": [
       {
@@ -78,6 +78,7 @@ Blockly.defineBlocksWithJsonArray([
       {
        "type": "field_input",
        "name": "LEFT_OP",
+       "text": "attribute"
      },
      {
        "type": "field_dropdown",
@@ -88,8 +89,9 @@ Blockly.defineBlocksWithJsonArray([
        ]
      },
      {
-       "type": "field_input",
-       "name": "RIGHT_OP"
+       "type": "input_value",
+       "name": "RIGHT_OP",
+       "check": ["String", "Number"]
      }
     ],
      //test: untyped output
@@ -98,7 +100,52 @@ Blockly.defineBlocksWithJsonArray([
      "colour": 220,
      "tooltip": "Drools object definition",
      "helpUrl": "http://www.drools.org/learn/documentation.html"
+  },
+  {
+    "type": "drools_string",
+    "message0": "String %1",
+    "args0": [
+      {
+        "type": "field_input",
+        "name": "VALUE"
+      }
+    ],
+    "output": "String",
+    "colour": 220,
+    "tooltip": "Drools String definition",
+    "helpUrl": "http://www.drools.org/learn/documentation.html"
+  },
+  {
+    "type": "drools_number",
+    "message0": "Number %1",
+    "args0": [
+      {
+        "type": "field_number",
+        "name": "VALUE"
+      }
+    ],
+    "output": "Number",
+    "colour": 220,
+    "tooltip": "Drools Number definition",
+    "helpUrl": "http://www.drools.org/learn/documentation.html"
+  },
+  {
+    "type": "drools_drl",
+    "message0": "DRL: %1",
+    "args0": [
+      {
+        "type": "field_input",
+        "name": "VALUE"
+      }
+    ],
+    "colour": 220,
+    "previousStatement": null,
+    "nextStatement": null,
+    "tooltip": "Drools Number definition",
+    "helpUrl": "http://www.drools.org/learn/documentation.html"
   }
+
+
 
 
 
