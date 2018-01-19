@@ -72,6 +72,10 @@ Blockly.Drools.scrub_ = function(block,code) {
     if (block.type == "drools_object" && nextBlock != null && nextBlock.type == "drools_object") {
       separator = "\n";
     }
+    if (block.type == "drools_property" && nextBlock != null && nextBlock.type == "drools_property") {
+      separator = "\n";
+    }
+
     var generatedCode = commentCode + code + separator + nextCode;
     console.log("Generated code: " + generatedCode);
     return generatedCode;
@@ -95,13 +99,23 @@ Blockly.Drools['drools_rule'] = function(block) {
   var ruleName = block.getFieldValue('NAME')
 
   //Generate code for the LHS and RHS
+  var propertiesCode = Blockly.Drools.statementToCode(block, 'PROPS');
   var lhsCode = Blockly.Drools.statementToCode(block, 'LHS');
   var rhsCode = Blockly.Drools.statementToCode(block, 'RHS');
 
   //Build the code of the rule.
-  var code = 'rule "'+ ruleName + '"\nwhen\n' + lhsCode + '\nthen\n' + rhsCode + '\nend\n';
+  var code = 'rule "'+ ruleName +'"\n' + propertiesCode + '\nwhen\n' + lhsCode + '\nthen\n' + rhsCode + '\nend\n';
 
   return code;
+}
+
+//Drools DRL
+Blockly.Drools['drools_property'] = function(block) {
+
+  var operator = block.getFieldValue("OPERATOR");
+  var operand = block.getFieldValue("OPERAND")
+  //TODO: Check which operator has been selected to correctly format the operand.
+  return operator + ' \"' + operand + '\"';
 }
 
 //Drools Object

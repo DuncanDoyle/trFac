@@ -19,9 +19,16 @@ Blockly.defineBlocksWithJsonArray([
         "text": "rule name"
       }
     ],
-    //when
-    "message1": "When %1",
+    "message1": "Properties %1",
     "args1": [
+      {
+       "type": "input_statement",
+       "name": "PROPS"
+      }
+    ],
+    //when
+    "message2": "When %1",
+    "args2": [
       {
        "type": "input_statement",
        "name": "LHS",
@@ -29,8 +36,8 @@ Blockly.defineBlocksWithJsonArray([
       }
     ],
     //then
-    "message2": "Then %1",
-    "args2": [
+    "message3": "Then %1",
+    "args3": [
       {
        "type": "input_statement",
        "name": "RHS",
@@ -143,10 +150,34 @@ Blockly.defineBlocksWithJsonArray([
     "nextStatement": null,
     "tooltip": "Drools Number definition",
     "helpUrl": "http://www.drools.org/learn/documentation.html"
+  },
+
+  {
+    "type": "drools_property",
+    //Left
+    "message0": "%1 %2",
+    "args0": [
+     {
+       "type": "field_dropdown",
+       "name": "OPERATOR",
+       "options": [
+         [ "salience", "salience" ],
+         [ "agenda-group", "agenda-group" ],
+         [ "ruleflow-group", "ruleflow-group" ]
+       ]
+     },
+     {
+       "type": "field_input",
+       "name": "OPERAND",
+       "check": ["String"]
+     }
+    ],
+     //test: untyped output
+     "previousStatement": null,
+     "nextStatement": null,
+     "colour": 220,
+     "tooltip": "Drools object definition",
+     "helpUrl": "http://www.drools.org/learn/documentation.html"
   }
-
-
-
-
 
 ]);
