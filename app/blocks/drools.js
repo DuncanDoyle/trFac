@@ -104,7 +104,7 @@ Blockly.defineBlocksWithJsonArray([
      //test: untyped output
      "previousStatement": null,
      "nextStatement": null,
-     "colour": 220,
+     "colour": 20,
      "tooltip": "Drools object definition",
      "helpUrl": "http://www.drools.org/learn/documentation.html"
   },

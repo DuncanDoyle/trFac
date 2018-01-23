@@ -5,6 +5,167 @@
   <title>Drockly</title>
   <meta name="description" content="Blockly-based block language for the Drools Rule Language">
   <meta name="viewport" content="width=device-width">
+
+  <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+  <script src="../bower_components/jquery/dist/jquery.js"></script>
+  <script src="../bower_components/jquery-ui/jquery-ui.js"></script>
+  <link rel="stylesheet" href="../bower_components/jquery-ui/themes/ui-darkness/jquery-ui.css">
+
+  <script type="text/javascript">
+  $(function() {
+
+      // Allows user to click Enter key in text field and it will submit the dialog
+      /*
+      $('#myDialog').keypress(function(e) {
+          if (e.keyCode == $.ui.keyCode.ENTER) {
+              getResponse();
+          }
+      });
+      */
+
+      /*
+      var cancel = function() {
+          $("#myDialog").dialog("close");
+      }
+      */
+
+
+      //var getResponse = function() {
+      //    var answer;
+      //    /*// for radio-button selection
+      //    $("input").each(function(){
+      //      (this.checked == true) ? answer = $(this).val() : null;
+      //    });
+      //     */
+      //
+      //    answer = $("#first_name").val();
+      //
+      //    // This adds it dynamically
+      //    // $("<p>").text(answer).insertAfter($("#poll"));
+      //    $("#result").text(answer);
+      //    $("#myDialog").dialog("close");
+      //}
+
+      //var dialogOpts = {
+      //    modal : true,
+      //    closeOnEscape : true,
+      //    buttons : {
+      //        "Done" : getResponse,
+      //        "Cancel" : cancel
+      //    },
+      //    autoOpen : false
+      //};
+      //$("#myDialog").dialog(dialogOpts);
+      //$("#poll").click(function() {
+      //    $("#myDialog").dialog("open");
+      //});
+
+
+      //Dialog which displays the generated code.
+      /*
+      $('#generatedCodeDialog').keypress(function(e) {
+          if (e.keyCode == $.ui.keyCode.ENTER) {
+              //  getResponse();
+          }
+      });
+      */
+      /*
+      var getResponse = function() {
+        console.log("Getting response!");
+        $("#generatedCodeDialog").dialog("close");
+      }
+      */
+
+      //Generate code dialog
+      var closeGeneratedCodeDialog = function() {
+        $("#generatedCodeDialog").dialog("close");
+      }
+
+      var generatedCodeDialogOpts = {
+          modal: true,
+          closeOnEscape: true,
+          width: "540",
+          height: "600",
+          buttons : {
+            "OK" : closeGeneratedCodeDialog,
+          },
+          autoOpen : false
+      }
+      $("#generatedCodeDialog").dialog(generatedCodeDialogOpts);
+
+      $("#generateCodeButton").click(function() {
+        $("#generatedCodeTextArea").text(generateCode());
+        $("#generatedCodeDialog").dialog("open");
+
+      });
+
+      //Save workspace
+      var closeSaveWorkspaceDialog = function() {
+        $("#saveWorkspaceDialog").dialog("close");
+      }
+
+      var saveWorkspaceDialogOpts = {
+          modal: true,
+          closeOnEscape: true,
+          width: "540",
+          height: "600",
+          buttons : {
+            "OK" : closeSaveWorkspaceDialog,
+          },
+          autoOpen : false
+      }
+      $("#saveWorkspaceDialog").dialog(saveWorkspaceDialogOpts);
+
+      $("#saveWorkspaceButton").click(function() {
+        $("#saveWorkspaceCodeTextArea").text(save());
+        $("#saveWorkspaceDialog").dialog("open");
+      });
+
+      //Restore Workspace
+      var closeLoadWorkspaceDialog = function() {
+        $("#loadWorkspaceDialog").dialog("close");
+      }
+
+      var getResponseLoadWorkspaceDialog = function() {
+          /*// for radio-button selection
+          $("input").each(function(){
+            (this.checked == true) ? answer = $(this).val() : null;
+          });
+           */
+
+          var workspaceXml = $("#loadWorkspaceCodeTextArea").val();
+
+          console.log("Loading workspace xml: " + workspaceXml);
+
+          // This adds it dynamically
+          // $("<p>").text(answer).insertAfter($("#poll"));
+          load(workspaceXml);
+          $("#loadWorkspaceDialog").dialog("close");
+      }
+
+      var loadWorkspaceDialogOpts = {
+          modal: true,
+          closeOnEscape: true,
+          width: "540",
+          height: "600",
+          buttons : {
+            "Load" : getResponseLoadWorkspaceDialog,
+            "Cancel" : closeLoadWorkspaceDialog
+          },
+          autoOpen : false
+      }
+      $("#loadWorkspaceDialog").dialog(loadWorkspaceDialogOpts);
+
+      $("#loadWorkspaceButton").click(function() {
+        //$("#loadWorkspaceCodeTextArea").text(save());
+        $("#loadWorkspaceDialog").dialog("open");
+      });
+
+  });
+  </script>
+
+
+
   <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
   <!-- build:css(.) styles/vendor.css -->
   <!-- bower:css -->
@@ -25,13 +186,47 @@
 
   <!-- Blockly Div -->
   <div id="blocklyDiv" style="height: 480px; width: 1200px;">
-    <button onclick="run()"> Generate code </button>
-  </div>
-  <div id="blocklyCode" style="height: 480px; width: 1200px;">
-    <h1>Generated code</h1>
 
   </div>
+  <div id="blocklyButtons" style="height: 480px; width: 1200px;">
+    <!--
+    <button id="generateCode" onclick="generateCode()"> Generate code </button>
+    -->
+    <button id="generateCodeButton"> Generate code </button>
+    <!--
+    <button onclick="save()"> Save workspace </button>
+    -->
+    <button id="saveWorkspaceButton"> Save workspace </button>
+    <button id="loadWorkspaceButton"> Load workspace </button>
+  </div>
 
+  <button id="poll">Poll</button>
+  <div id="myDialog" class="flora" title="This is the title">
+    <p>Question?</p>
+    <label for="yes">Yes!</label><input type="radio" id="yes" value="yes25" name="question"><br>
+    <label for="no">No!</label><input type="radio" id="no" value="no" name="question">
+    <br/>
+    First Name: <input type="text" id="first_name" />
+  </div>
+
+
+  <div id="generatedCodeDialog" class="flora" title="Generated Code">
+    <textarea id="generatedCodeTextArea" rows="20" cols="60">
+    </textarea>
+  </div>
+
+  <div id="saveWorkspaceDialog" class="flora" title="Save Workspace">
+    <textarea id="saveWorkspaceCodeTextArea" rows="20" cols="60">
+    </textarea>
+  </div>
+
+  <div id="loadWorkspaceDialog" class="flora" title="Load Workspace">
+    <textarea id="loadWorkspaceCodeTextArea" rows="20" cols="60">
+    </textarea>
+  </div>
+
+  <div style='color: green;' id='result'>
+  </div>
   <!-- Blockly toolbox structure -->
   <xml id="toolbox" style="display: none">
     <category name="Drools" colout=100>
@@ -118,12 +313,15 @@
   <script src="scripts/controllers/mytickets.js"></script>
   <script src="scripts/controllers/ticket.js"></script>
   -->
+
   <script src="../bower_components/google-blockly/blockly_compressed.js"></script>
   <script src="../bower_components/google-blockly/blocks_compressed.js"></script>
+
   <!-- DRL blocks. -->
   <script src="blocks/drools.js"></script>
   <script src="generators/drools.js"></script>
 
+  <script src="scripts/persistence.js"></script>
 
   <script src="../bower_components/google-blockly/msg/js/en.js"></script>
   <script>
@@ -133,11 +331,21 @@
 
 
   <script>
-    var run =  function() {
+    var generateCode =  function() {
       Blockly.Drools.addReservedWords('code');
       var code = Blockly.Drools.workspaceToCode(workspace);
-      alert("Drools code: \n\n" + code);
+      //alert("Drools code: \n\n" + code);
+      return code;
+    }
 
+    var save =  function() {
+      var xmlText = saveWorkspace(workspace);
+      return xmlText;
+      //alert("Workspace blocks XML: \n\n" + xmlText);
+    }
+
+    var load = function(xmlText) {
+      loadWorkspace(xmlText, workspace);
     }
 </script>
 
