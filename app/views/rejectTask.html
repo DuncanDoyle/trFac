@@ -1,0 +1,50 @@
+<div>
+    <div class="jumbotron">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <h2>Task</h2>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="alert alert-danger" ng-show="data.error.code">
+                {{data.error.message}}
+            </div>
+
+            <div class="panel panel-default" ng-hide="data.error.code">
+
+                <div class="panel-heading">
+                    <h3>Reject Task</h3>
+                </div>
+
+                <form name="viewTaskForm" novalidate="true">
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label>Description:</label>
+                            <text>{{data.task['task-description']}}</text>
+                        </div>
+                        <div class="form-group">
+                            <label>Prospect:</label>
+                            <input class="form-control" ng-model="data.task['task-input-data']['htProspect']['signavio.Prospect']['name']" readonly="true"/>
+                        </div>
+                        <div class="form-group">
+                            <label>Card Interest Rate:</label>
+                            <input class="form-control" ng-model="data.task['task-input-data']['htDetermineInterestRateOutput']['defaultpkg.DetermineInterestRate_Output']['cardRate']" readonly="true"/>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Reason for rejection.</label>
+                            <!--
+                            <textarea class="form-control" ng-model="data.task['task-output-data']['comments']" />
+                          -->
+                            <input class="form-control" ng-model="data.task['task-output-data']['htRejection']['signavio.Rejection']['reason']" />
+                        </div>
+                        <button type="submit" class="btn btn-default" ng-click="saveTask(data.task)">Save</button>
+                        <button type="submit" class="btn btn-default" ng-click="completeTask(data.task)">Complete</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,80 +1,53 @@
 <!doctype html>
-<html>
-<head ng-cloak>
+<html lang="en" ng-app="trFacApp">
+<head>
   <meta charset="utf-8">
-  <title>Drockly</title>
+  <title>trFac</title>
   <meta name="description" content="Blockly-based block language for the Drools Rule Language">
   <meta name="viewport" content="width=device-width">
 
-  <script src="../bower_components/jquery/dist/jquery.min.js"></script>
-  <script src="../bower_components/jquery/dist/jquery.js"></script>
-  <script src="../bower_components/jquery-ui/jquery-ui.js"></script>
-  <link rel="stylesheet" href="../bower_components/jquery-ui/themes/ui-darkness/jquery-ui.css">
+  <!-- jquery -->
+  <!--
+  <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+  <script src="../node_modules/jquery/dist/jquery.js"></script>
+  -->
 
+  <!-- jquery-ui -->
+  <!--
+  <script src="../node_modules/jquery-ui-dist/jquery-ui.js"></script>
+-->
+  <!--
+  <link rel="stylesheet" href="../node_modules/jquery-ui-themes/themes/ui-darkness/jquery-ui.css">
+-->
+
+  <!-- Bootstrap Styles -->
+  <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css" />
+  <!-- PatternFly Styles -->
+  <link href="../node_modules/patternfly/dist/css/patternfly.min.css" rel="stylesheet" media="screen, print">
+  <link href="../node_modules/patternfly/dist/css/patternfly-additions.min.css" rel="stylesheet" media="screen, print">
+
+  <!-- Embed the Jumbotron stylesheet. -->
+  <style type="text/css">
+      .jumbotron {
+          padding-top: 50px;
+          padding-bottom: 20px;
+      }
+  </style>
+
+  <style type="text/css">
+      .mycheckbox {
+          margin-top: 5px;
+          margin-left: 5px;
+      }
+  </style>
+
+  <style type="text/xss">
+      .svg-container { display: inline-block; position: relative; width: 100%; padding-bottom: 100%; vertical-align: middle; overflow: hidden; }
+  </style>
+
+<!--
   <script type="text/javascript">
   $(function() {
-
-      // Allows user to click Enter key in text field and it will submit the dialog
-      /*
-      $('#myDialog').keypress(function(e) {
-          if (e.keyCode == $.ui.keyCode.ENTER) {
-              getResponse();
-          }
-      });
-      */
-
-      /*
-      var cancel = function() {
-          $("#myDialog").dialog("close");
-      }
-      */
-
-
-      //var getResponse = function() {
-      //    var answer;
-      //    /*// for radio-button selection
-      //    $("input").each(function(){
-      //      (this.checked == true) ? answer = $(this).val() : null;
-      //    });
-      //     */
-      //
-      //    answer = $("#first_name").val();
-      //
-      //    // This adds it dynamically
-      //    // $("<p>").text(answer).insertAfter($("#poll"));
-      //    $("#result").text(answer);
-      //    $("#myDialog").dialog("close");
-      //}
-
-      //var dialogOpts = {
-      //    modal : true,
-      //    closeOnEscape : true,
-      //    buttons : {
-      //        "Done" : getResponse,
-      //        "Cancel" : cancel
-      //    },
-      //    autoOpen : false
-      //};
-      //$("#myDialog").dialog(dialogOpts);
-      //$("#poll").click(function() {
-      //    $("#myDialog").dialog("open");
-      //});
-
-
-      //Dialog which displays the generated code.
-      /*
-      $('#generatedCodeDialog').keypress(function(e) {
-          if (e.keyCode == $.ui.keyCode.ENTER) {
-              //  getResponse();
-          }
-      });
-      */
-      /*
-      var getResponse = function() {
-        console.log("Getting response!");
-        $("#generatedCodeDialog").dialog("close");
-      }
-      */
 
       //Generate code dialog
       var closeGeneratedCodeDialog = function() {
@@ -163,45 +136,90 @@
 
   });
   </script>
-
-
-
-  <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-  <!-- build:css(.) styles/vendor.css -->
-  <!-- bower:css -->
-  <!--
-  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
-  -->
-  <!-- endbower -->
-  <!-- endbuild -->
-  <!-- build:css(.tmp) styles/main.css -->
-  <!--
-  <link rel="stylesheet" href="styles/main.css">
 -->
-  <!-- endbuild -->
+
 </head>
 
 <body>
-  <h1>Drockly: A blockly-based block language for DRL</h1>
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#/">trFac: a Blockly based block language for the Drools Rule Language</a>
+      </div>
+      <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li uib-dropdown>
+            <a href="" uib-dropdown-toggle><span class="glyphicon glyphicon-menu-hamburger"></span></a>
+            <ul uib-dropdown-menu>
+              <li><a href="#!/">Home</a></li>
+              <li><a ng-href="#!/rulesEditor">Rules Editor</a></li>
+              <li><a ng-href="#!/humanTasks">Tasks</a></li>
+              <li role="separator" class="divider"></li>
+              <li class="dropdown-header">Support</li>
+              <li><a href="https://www.github.com/DuncanDoyle/drockly">Source Code</a></li>
+              <li><a href="mailto:ddoyle@redhat.com">Contact</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+
+  <!-- AngularJS View-Container for the various views. -->
+  <div class="ng-view"></div>
+
+  <hr>
+  <footer>
+      <p>&copy; 2018 Red Hat, Inc.</p>
+  </footer>
+
+  <!-- Not using bootstrap.js, as we are using AngularJS. For bootstrap directives use ui-bootstrap. -->
+  <script src="../node_modules/angular/angular.min.js"></script>
+  <script src="../node_modules/angular-route/angular-route.min.js"></script>
+  <!-- TODO: Replace with ng-bootstrap -->
+  <script src="../node_modules/angular-ui-bootstrap/dist/ui-bootstrap.js"></script>
+
+
+  <!-- AngularJS: Application Config and Controllers -->
+  <script src="scripts/config.js"></script>
+  <script src="scripts/app.js"></script>
+  <script src="scripts/controllers/main.js"></script>
+  <script src="scripts/controllers/rulesEditor.js"></script>
+
 
   <!-- Blockly Div -->
+  <!--
   <div id="blocklyDiv" style="height: 480px; width: 1200px;">
-
   </div>
+  -->
+  <!--
   <div id="blocklyButtons" style="height: 480px; width: 1200px;">
+  -->
     <!--
     <button id="generateCode" onclick="generateCode()"> Generate code </button>
     -->
+    <!--
     <button id="generateCodeButton"> Generate code </button>
+  -->
     <!--
     <button onclick="save()"> Save workspace </button>
     -->
+    <!--
     <button id="saveWorkspaceButton"> Save workspace </button>
     <button id="loadWorkspaceButton"> Load workspace </button>
   </div>
-
-  <button id="poll">Poll</button>
-  <div id="myDialog" class="flora" title="This is the title">
+-->
+<!--
+<div id="myDialog" class="flora" title="This is the title">
     <p>Question?</p>
     <label for="yes">Yes!</label><input type="radio" id="yes" value="yes25" name="question"><br>
     <label for="no">No!</label><input type="radio" id="no" value="no" name="question">
@@ -224,10 +242,13 @@
     <textarea id="loadWorkspaceCodeTextArea" rows="20" cols="60">
     </textarea>
   </div>
-
+-->
+<!--
   <div style='color: green;' id='result'>
   </div>
+-->
   <!-- Blockly toolbox structure -->
+  <!--
   <xml id="toolbox" style="display: none">
     <category name="Drools" colout=100>
       <block type="drools_rule"></block>
@@ -237,6 +258,7 @@
       <block type="drools_string"></block>
       <block type="drools_number"></block>
       <block type="drools_drl"></block>
+    -->
       <!--
       <block type="controls_if"></block>
       <block type="controls_repeat_ext"></block>
@@ -246,51 +268,14 @@
       <block type="text"></block>
       <block type="text_print"></block>
     -->
+    <!--
     </category>
   </xml>
-
-
-
-
-<!--
-<body ng-cloak>
-  <div class="header">
-    <div class="navbar navbar-default" role="navigation">
-      <div class="container">
-        <div class="navbar-header">
-
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#js-navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-
-          <a class="navbar-brand" href="#/">TicketApp</a>
-        </div>
-
-        <div class="collapse navbar-collapse" id="js-navbar-collapse">
-
-          <ul class="nav navbar-nav">
-            <li><a ng-href="/#/createTicket">Create Ticket</a></li>
-            <li><a ng-href="/#/myTickets">My Tickets</a></li>
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="" ng-click="userLogout()">Log Out</a></li>
-          </ul>
-          <p class= "navbar-text navbar-right">{{currentUser.username}}</p>
-
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-  <div class="container">
-    <div ng-view=""></div>
-  </div>
-
 -->
+
+
+
+
 
   <!-- build:js(.) scripts/vendor.js -->
   <!-- bower:js -->
@@ -313,21 +298,30 @@
   <script src="scripts/controllers/mytickets.js"></script>
   <script src="scripts/controllers/ticket.js"></script>
   -->
+  <!-- Blockly modules-->
 
-  <script src="../bower_components/google-blockly/blockly_compressed.js"></script>
-  <script src="../bower_components/google-blockly/blocks_compressed.js"></script>
+  <script src="../node_modules/google-blockly/blockly_compressed.js"></script>
+  <script src="../node_modules/google-blockly/blocks_compressed.js"></script>
+  <script src="../node_modules/google-blockly/msg/js/en.js"></script>
+
 
   <!-- DRL blocks. -->
+
   <script src="blocks/drools.js"></script>
   <script src="generators/drools.js"></script>
 
-  <script src="scripts/persistence.js"></script>
 
-  <script src="../bower_components/google-blockly/msg/js/en.js"></script>
+  <!-- Persistence function -->
+  <!--
+  <script src="scripts/persistence.js"></script>
+  -->
+
+
+  <!--
   <script>
     var workspace = Blockly.inject('blocklyDiv', {toolbox: document.getElementById('toolbox')});
-
   </script>
+-->
 
 
   <script>

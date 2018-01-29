@@ -1,0 +1,64 @@
+<div>
+    <div class="jumbotron">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <h2>Rules Editor: {{droolsLanguage}}</h2>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="alert alert-danger" ng-show="data.error.code">
+                {{data.error.message}}
+            </div>
+
+            <div class="panel panel-default" ng-hide="data.error.code || data.result">
+                <div class="panel-heading">
+                    <h3>Rules Editor</h3>
+                </div>
+                <!--
+                <div id="blocklyDiv" style="height: 480px; width: 1200px;">
+                -->
+                <div id="blocklyDiv" style="height: 480px">
+                </div>
+            </div>
+            <!--
+            <div class="panel panel-default" ng-show="!data.error.code &amp;&amp; data.result">
+                <div class="panel-body">
+                    <h3>Credit Card Application Submitted.</h3>
+                    <p>
+                        Your application has been submitted! Application reference : {{data.result}}
+                    </p>
+                    <p>
+                        You will receive an e-mail confirmation within the next minutes.
+                    </p>
+                    <button type="submit" class="btn btn-default" ng-href="/">Home</button>
+                </div>
+            </div>
+          -->
+        </div>
+    </div>
+</div>
+<!-- Blockly toolbox structure -->
+
+<xml id="toolbox" style="display: none">
+  <category name="Drools" colout=100>
+    <block type="drools_rule"></block>
+    <block type="drools_property"></block>
+    <block type="drools_object"></block>
+    <block type="drools_constraint"></block>
+    <block type="drools_string"></block>
+    <block type="drools_number"></block>
+    <block type="drools_drl"></block>
+
+    <!--
+    <block type="controls_if"></block>
+    <block type="controls_repeat_ext"></block>
+    <block type="logic_compare"></block>
+    <block type="math_number"></block>
+    <block type="math_arithmetic"></block>
+    <block type="text"></block>
+    <block type="text_print"></block>
+  -->
+  </category>
+</xml>

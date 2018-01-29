@@ -1,0 +1,66 @@
+<div>
+    <div class="jumbotron">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <h2>Process Instances</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="alert alert-danger" ng-show="data.error.code">
+                {{data.error.message}}
+            </div>
+
+            <div class="panel panel-default" ng-hide="data.error.code == 'getProcessInstances'">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ProcessId</th>
+                            <th>ProcessInstanceId</th>
+                            <th>Version</th>
+                            <th>Correlation-Key</th>
+                            <th>Start Date</th>
+                            <th>State</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- pi is just a variable name . -->
+                        <tr ng-repeat="pi in data.result">
+                            <td>{{pi["process-id"]}}</td>
+                            <td>{{pi["process-instance-id"]}}</td>
+                            <td>{{pi["process-version"]}}</td>
+                            <td>{{pi["correlation-key"]}}</td>
+                            <td>{{pi["start-date"] | date:'short'}}</td>
+                            <td>{{pi["process-instance-state"]}}</td>
+                            <td>
+                                <button class="btn btn-default" ng-show="pi['process-instance-state'] == '1'" ng-click="abortProcessInstance(pi['process-instance-id'])">Abort</button>
+                                <button class="btn btn-default" ng-show="pi['process-instance-state'] == '1'" ng-click="getProcessInstanceImage(pi['process-instance-id'])" tooltip="Image" tooltip-placement="left">Image</button>
+                                <!--
+                                  <button class="btn btn-default" ng-show="task['task-status'] == 'Reserved'" ng-click="processTicket(task['task-id'],'started')">Start</button>
+                                  <button class="btn btn-default" ng-show="task['task-status'] == 'Reserved'" ng-click="processTicket(task['task-id'],'released')">Release</button>
+                                  <button class="btn btn-default" ng-show="task['task-status'] == 'InProgress'" ng-click="processTicket(task['task-id'],'released')">Release</button>
+                                  <button class="btn btn-default" ng-show="task['task-status'] == 'InProgress'" ng-click="viewTicket(task['task-id'])">View</button>
+                                -->
+
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <nav>
+                    <ul class="pager">
+                        <li ng-hide="data.page == 0"><a href="" ng-click="getProcessInstances(data.page - 1)">Previous</a></li>
+                        <li class="disabled" ng-show="data.page == 0"><a href="" ng-click="getProcessInstances(data.page - 1)">Previous</a></li>
+                        <li><a href="" ng-click="getProcessInstances(data.page + 1)">Next</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div ng-if="selectedprocessinstance.id">
+                Selected Process Instance: {{selectedprocessinstance.id}}
+                <div ng-bind-html="selectedprocessinstance.svg"></div>
+            </div>
+        </div>
+    </div>
+</div>

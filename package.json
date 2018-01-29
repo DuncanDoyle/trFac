@@ -1,0 +1,16 @@
+{
+  "dependencies": {
+    "angular": "^1.6.8",
+    "angular-route": "^1.6.8",
+    "angular-ui-bootstrap": "^2.5.6",
+    "google-blockly": "^1.0.0",
+    "jquery": "^3.3.1",
+    "jquery-ui-dist": "^1.12.1",
+    "jquery-ui-themes": "^1.12.0",
+    "patternfly": "^3.37.9"
+  },
+  "engines": {
+    "yarn": ">= 1.0.0"
+  },
+  "scripts": {}
+}

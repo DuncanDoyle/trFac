@@ -1,0 +1,53 @@
+<div>
+    <div class="jumbotron">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <h2>Human Tasks</h2>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="alert alert-danger" ng-show="data.error.code">
+                {{data.error.message}}
+            </div>
+
+            <div class="panel panel-default" ng-hide="data.error.code == 'humanTasks'">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Task ID</th>
+                            <th>Task Name</th>
+                            <th>Task Description</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="task in data.result">
+                            <td>{{task["task-id"]}}</td>
+                            <td>{{task["task-name"]}}</td>
+                            <td>{{task["task-description"] | description:'subject'}}</td>
+                            <td>{{task["task-status"]}}</td>
+                            <td>
+                                <button class="btn btn-default" ng-show="task['task-status'] == 'Ready'" ng-click="processHumanTask(task['task-id'],'claimed')">Claim</button>
+                                <button class="btn btn-default" ng-show="task['task-status'] == 'Reserved'" ng-click="processHumanTask(task['task-id'],'started')">Start</button>
+                                <button class="btn btn-default" ng-show="task['task-status'] == 'Reserved'" ng-click="processHumanTask(task['task-id'],'released')">Release</button>
+                                <button class="btn btn-default" ng-show="task['task-status'] == 'InProgress'" ng-click="processHumanTask(task['task-id'],'released')">Release</button>
+                                <button class="btn btn-default" ng-show="task['task-status'] == 'InProgress'" ng-click="viewHumanTask(task['task-id'], task['task-name'])">View</button>
+
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <nav>
+                    <ul class="pager">
+                        <li ng-hide="data.page == 0"><a href="" ng-click="getHumanTasks(data.page - 1)">Previous</a></li>
+                        <li class="disabled" ng-show="data.page == 0"><a href="" ng-click="getHumanTasks(data.page - 1)">Previous</a></li>
+                        <li><a href="" ng-click="getHumanTasks(data.page + 1)">Next</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
